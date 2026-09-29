@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Local Bus Timings</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #f2f2f2;
+            padding: 30px;
+        }
+
+        .box {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        button {
+            width: 90%;
+            padding: 14px;
+            margin: 10px;
+            border: none;
+            border-radius: 10px;
+            background: #222;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #444;
+        }
+
+        #destination,
+        #timings {
+            display: none;
+        }
+
+        .time {
+            font-size: 18px;
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="box">
+
+    <h1>🚌 Local Bus Timings</h1>
+
+    <!-- STEP 1 -->
+    <div id="direction">
+        <h2>Choose Direction</h2>
+
+        <button onclick="chooseDirection('College → Town')">
+            College → Town
+        </button>
+
+        <button onclick="chooseDirection('Town → College')">
+            Town → College
+        </button>
+    </div>
+
+
+    <!-- STEP 2 -->
+    <div id="destination">
+
+        <h2 id="directionTitle"></h2>
+
+        <h3>Choose Destination</h3>
+
+        <button onclick="showTimings('Karkala')">
+            Karkala
+        </button>
+
+        <button onclick="showTimings('Udupi')">
+            Udupi
+        </button>
+
+    </div>
+
+
+    <!-- STEP 3 -->
+    <div id="timings">
+
+        <h2 id="destinationTitle"></h2>
+
+        <h3>Bus Timings</h3>
+
+        <div id="timeList"></div>
+
+        <button onclick="goBack()">← Back</button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    let selectedDirection = "";
+
+    function chooseDirection(direction) {
+
+        selectedDirection = direction;
+
+        document.getElementById("direction").style.display = "none";
+        document.getElementById("destination").style.display = "block";
+
+        document.getElementById("directionTitle").innerText = direction;
+    }
+
+
+    function showTimings(destination) {
+
+        document.getElementById("destination").style.display = "none";
+        document.getElementById("timings").style.display = "block";
+
+        document.getElementById("destinationTitle").innerText =
+            selectedDirection + " - " + destination;
+
+
+        let timings = [];
+
+        if (selectedDirection === "College → Town" &&
+            destination === "Karkala") {
+
+            timings = ["7:30 AM", "8:30 AM", "10:00 AM"];
+
+        }
+
+        else if (selectedDirection === "College → Town" &&
+                 destination === "Udupi") {
+
+            timings = ["7:45 AM", "9:00 AM", "10:30 AM"];
+
+        }
+
+        else if (selectedDirection === "Town → College" &&
+                 destination === "Karkala") {
+
+            timings = ["4:30 PM", "5:30 PM", "6:30 PM"];
+
+        }
+
+        else if (selectedDirection === "Town → College" &&
+                 destination === "Udupi") {
+
+            timings = ["4:45 PM", "5:45 PM", "6:45 PM"];
+
+        }
+
+
+        let output = "";
+
+        timings.forEach(function(time) {
+            output += `<div class="time">🚌 ${time}</div>`;
+        });
+
+        document.getElementById("timeList").innerHTML = output;
+    }
+
+
+    function goBack() {
+
+        document.getElementById("timings").style.display = "none";
+        document.getElementById("destination").style.display = "block";
+    }
+
+</script>
+
+</body>
+</html>
